@@ -7,16 +7,35 @@ import (
 	//"errors"
 	"strings"
 	"example.com/structProject/note"
+	"example.com/structProject/todo"
 )
 
 
 func main() {
 	title, content := getNoteData()
+
+	todoText := getUserInput("Todo text: ")
+
+	todo, err := todo.New(todoText)
+	if(err != nil) {
+		fmt.Println(err)
+		return
+	}
+
 	userNote, err := note.New(title, content)
 	if(err!=nil) {
 		fmt.Println(err)
 		return
 	}
+
+	todo.Display()
+
+	err = todo.Save()
+	if(err != nil) {
+		fmt.Println(err)
+		return
+	}
+
 	userNote.Display()
 
 	err = userNote.Save()

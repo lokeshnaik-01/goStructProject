@@ -58,9 +58,48 @@ func main() {
 	}
 	printSomething("Lokesh Naik")
 	printSomething(123)
+	printSomething("123")
+
+	// in add if we speicfy the types as interface{} saying it can take any value
+	// then value will be of type interface{} which will cause problems
+	// so we use generics
+	value := add(1, 2)
+	fmt.Println(value +21)
+	value1 := add("1", "2")
+	fmt.Println(value1 + "21")
 }
 
+
+func add[T int | float64 | string](a, b T) T {
+	// we don't need to check all and ust give supported types
+	// this can be used while writing libraries
+	return a+b
+	// aInt, aIsInt := a.(int)
+	// bInt, bIsInt := b.(int)
+
+	// if(aIsInt && bIsInt) {
+	//  	return aInt + bInt
+	//}
+
+	// aFloat, aIsFloat := a.(float64)
+	// bFloat, bIsFloat := b.(float64)
+
+	//if(aIsFloat&&bIsFloat) {
+	//  	return aFloat + bFloat
+	//}
+}
 func printSomething(value interface{}) {
+	typedVal, ok := value.(int)
+	// this checkes if the value if of which type
+	if (!ok) {
+		fmt.Println("error")
+		return
+	} else {
+		typedVal+=1
+		fmt.Println(value, typedVal)
+		return
+	}
+	
 	switch value.(type) {
 	case int:
 		fmt.Println("Integer: ", value)

@@ -16,6 +16,20 @@ type saver interface {
 	Save() error
 }
 
+// type displayer interface {
+//	 Display()
+// }
+
+type outputtable interface {
+	saver
+	Display()
+	// embedded interface
+}
+
+// type outputtable interface {
+//	 Save() error
+//	 Display()
+// }
 func main() {
 	title, content := getNoteData()
 
@@ -33,19 +47,20 @@ func main() {
 		return
 	}
 
+	err = outputData(todo)
 	
-	userNote.Display()
-	err = saveData(userNote)
-	if(err != nil) {
-		fmt.Println("error in saving note")
-	}
-
-	todo.Display()
-	err = saveData(todo)
 	if(err != nil) {
 		fmt.Println("error in saving todo")
 	}
-	
+	err = outputData(userNote)
+	if(err != nil) {
+		fmt.Println("error in saving note")
+	}
+}
+
+func outputData(data outputtable) error{
+	data.Display()
+	return saveData(data)
 }
 
 func saveData(data saver) error{

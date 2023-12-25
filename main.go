@@ -56,6 +56,21 @@ func main() {
 	if(err != nil) {
 		fmt.Println("error in saving note")
 	}
+	printSomething("Lokesh Naik")
+	printSomething(123)
+}
+
+func printSomething(value interface{}) {
+	switch value.(type) {
+	case int:
+		fmt.Println("Integer: ", value)
+	case float64:
+		fmt.Println("Float: ", value)
+	case string:
+		fmt.Println("String: ", value)
+	}
+	// interface{} will accept any kind of value not specific
+	fmt.Println(value)
 }
 
 func outputData(data outputtable) error{

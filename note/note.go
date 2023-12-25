@@ -9,9 +9,9 @@ import (
 	"encoding/json"
 )
 type Note struct {
-	Title string
+	Title string `json:"title"`
 	Content string
-	CreatedAt time.Time
+	CreatedAt time.Time `json:"created_at"`
 	private string
 }
 

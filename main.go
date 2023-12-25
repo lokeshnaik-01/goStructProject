@@ -10,6 +10,11 @@ import (
 	"example.com/structProject/todo"
 )
 
+// both note and todo have save menthod so instead of duplicating the lines we use interface
+// it'll call the save method
+type saver interface {
+	Save() error
+}
 
 func main() {
 	title, content := getNoteData()
